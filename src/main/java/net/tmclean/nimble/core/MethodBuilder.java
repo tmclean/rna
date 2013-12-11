@@ -27,27 +27,37 @@ public class MethodBuilder extends Builder<MethodBuilder, ClassBuilder>
 	{
 		super( classBuilder.getPool() );
 
+		logger.debug( "Creating new MethodBuilder for class" );
+		
 		this.classBuilder = classBuilder;
 		this.cClass = this.classBuilder.getCTClass();
 	}
 	
 	public MethodBuilder named( String name )
 	{
+		logger.debug( "Setting method name to {}", name );
+		
 		this.name = name;
 		return this;
 	}
 	
 	public MethodBuilder returns( Class<?> returnType ) throws NotFoundException
 	{
+		logger.debug( "Setting return type to {}", returnType.getName() );
+		
 		this.returnType = getPool().get( returnType.getName() );
 		return this;
 	}
 	
 	public MethodBuilder takes( String name, Class<?> paramType ) throws NotFoundException
 	{
+		logger.debug( "Adding method parameter with name {} and type {}", name, paramType.getName() );
+		
 		this.parameters.add( getPool().get( paramType.getName() ) );
 		
 		int ordinal = paramOrderMap.size();
+		
+		logger.debug( "Method parameter {} has ordinal {}", name, ordinal );
 		
 		this.paramOrderMap.put( name, ordinal );
 		this.paramInvOrderMap.put( ordinal, name );
@@ -57,22 +67,30 @@ public class MethodBuilder extends Builder<MethodBuilder, ClassBuilder>
 	
 	public MethodBuilder withSource( String src )
 	{
+		logger.debug( "Setting method soruce {}", src );
+		
 		this.src = src;
 		return this;
 	}
 	
 	public MethodAnnotationBuilder annotatedBy( Class<?> annotationClass )
 	{
+		logger.debug( "Adding method annotation {}", annotationClass.getName() );
+		
 		return new MethodAnnotationBuilder( this, annotationClass );
 	}
 	
 	public MethodParamAnnotationBuilder paramAnnotatedBy( String paramName, Class<?> annotationClass )
 	{
+		logger.debug( "Adding annotation {} to parameter {}", annotationClass.getName(), paramName );
+		
 		return new MethodParamAnnotationBuilder( this, paramName, annotationClass );
 	}
 	
 	public MethodBuilder build() throws CannotCompileException
 	{
+		logger.debug( "Building method" );
+		
 		CtClass[] params = parameters.toArray( new CtClass[]{} );
 		method = new CtMethod( returnType, name, params, cClass );
 		method.setModifiers( getModifier() );
@@ -84,6 +102,8 @@ public class MethodBuilder extends Builder<MethodBuilder, ClassBuilder>
 	@Override
 	public ClassBuilder apply() throws CannotCompileException, NotFoundException
 	{	
+		logger.debug( "Adding method to class" );
+		
 		cClass.addMethod( method );
 		
 		return this.classBuilder;
@@ -101,16 +121,28 @@ public class MethodBuilder extends Builder<MethodBuilder, ClassBuilder>
 	
 	public int getParamOrdinal( String name )
 	{
-		return this.paramOrderMap.get( name );
+		logger.debug( "Attempting to find ordinal for parameter {}", name );
+		
+		int ordinal = this.paramOrderMap.get( name );
+		
+		logger.debug( "Parameter {} has ordinal {}", name, ordinal );
+		
+		return ordinal;
+	}
+	
+	public String getParamAtOrdinal( int ordinal )
+	{
+		logger.debug( "Attempting to find ordinal at {}", ordinal );
+		
+		String param = this.paramInvOrderMap.get( ordinal );
+		
+		logger.debug( "Parameter at ordinal {} is named {}", ordinal, name );
+		
+		return param;
 	}
 	
 	public int getNumParams()
 	{
 		return this.paramOrderMap.size();
-	}
-	
-	public String getParamAtOrdinal( int ordinal )
-	{
-		return this.paramInvOrderMap.get( ordinal );
 	}
 }

@@ -20,6 +20,8 @@ public class ClassAnnotationBuilder extends Builder<ClassAnnotationBuilder, Clas
 	public ClassAnnotationBuilder( ClassBuilder classBuilder, Class<?> annotationClass ) 
 	{
 		super( classBuilder.getPool() );
+	
+		logger.debug( "Creating new ClassAnnotationBuilder for " + annotationClass.getName() );
 		
 		this.classBuilder = classBuilder;
 		this.cClass = classBuilder.getCTClass();
@@ -30,6 +32,9 @@ public class ClassAnnotationBuilder extends Builder<ClassAnnotationBuilder, Clas
 	
 	public ClassAnnotationBuilder withStringsParam( String name, String ... values )
 	{
+		if( logger.isDebugEnabled() )
+			logger.debug( "Setting class annotation String param '{}' with values {}", name, new Object[]{values} );
+		
 		ArrayMemberValue arrayVal = new ArrayMemberValue( constPool );
 		
 		MemberValue[] vals = new MemberValue[values == null ? 0 : values.length];
@@ -46,6 +51,8 @@ public class ClassAnnotationBuilder extends Builder<ClassAnnotationBuilder, Clas
 	
 	public ClassAnnotationBuilder withStringParam( String name, String value )
 	{
+		logger.debug( "Setting class annotation String param '{}' with value {}", name, value );
+		
 		annotation.addMemberValue( name, new StringMemberValue( value, constPool ) );
 		
 		return this;
@@ -55,11 +62,18 @@ public class ClassAnnotationBuilder extends Builder<ClassAnnotationBuilder, Clas
 	@Override
 	public ClassBuilder apply() throws CannotCompileException, NotFoundException
 	{
+		logger.debug( "Applying class annotation" );
+		
 		String visibility = AnnotationsAttribute.visibleTag;
 		
 		if( cClass.getClassFile().getAttribute( visibility ) == null )
+		{
+			logger.debug( "Class AnnotationInfo has not been initialized for this class, initializing" );
+			
 			cClass.getClassFile().getAttributes().add( (Object)new AnnotationsAttribute( constPool, visibility ) );
+		}
 		
+		logger.debug( "Adding annotation to class" );
 		((AnnotationsAttribute)cClass.getClassFile().getAttribute( visibility )).addAnnotation( annotation );
 		
 		return this.classBuilder;

@@ -21,6 +21,8 @@ public class MethodAnnotationBuilder extends Builder<MethodAnnotationBuilder, Me
 	{
 		super( methodBuilder.getPool() );
 		
+		logger.debug( "Creating new MethodAnnotationBuilder for annotation {}", annotationClass.getName() );
+		
 		this.methodBuilder = methodBuilder;
 		this.cClass = methodBuilder.getCTClass();
 		this.constPool = cClass.getClassFile().getConstPool();
@@ -30,6 +32,9 @@ public class MethodAnnotationBuilder extends Builder<MethodAnnotationBuilder, Me
 	
 	public MethodAnnotationBuilder withStringsParam( String name, String ... values )
 	{
+		if( logger.isDebugEnabled() )
+			logger.debug( "Setting method annotation parameter {} with values {}", name, new Object[]{ values } );
+		
 		ArrayMemberValue arrayVal = new ArrayMemberValue( constPool );
 		
 		MemberValue[] vals = new MemberValue[values == null ? 0 : values.length];
@@ -46,6 +51,8 @@ public class MethodAnnotationBuilder extends Builder<MethodAnnotationBuilder, Me
 	
 	public MethodAnnotationBuilder withStringParam( String name, String value )
 	{
+		logger.debug( "Adding method annotation parameter {} with value {}", name, value );
+		
 		annotation.addMemberValue( name, new StringMemberValue( value, constPool ) );
 		
 		return this;
@@ -54,10 +61,18 @@ public class MethodAnnotationBuilder extends Builder<MethodAnnotationBuilder, Me
 	@Override
 	public MethodBuilder apply() throws CannotCompileException, NotFoundException
 	{
+		logger.debug( "Applying method annotation to method" );
+		
 		String visibility = AnnotationsAttribute.visibleTag;
 		
 		if( methodBuilder.getCTMethod().getMethodInfo().getAttribute( visibility ) == null )
+		{
+			logger.debug( "Method annotations info is uninitialized, initializing" );
+			
 			methodBuilder.getCTMethod().getMethodInfo().addAttribute( new AnnotationsAttribute( constPool, visibility ) );
+		}
+		
+		logger.debug( "Adding method annotation to method" );
 		
 		((AnnotationsAttribute)methodBuilder.getCTMethod().getMethodInfo().getAttribute( visibility )).addAnnotation( annotation );
 		

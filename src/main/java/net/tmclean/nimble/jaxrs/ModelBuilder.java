@@ -13,10 +13,14 @@ public class ModelBuilder extends ClassBuilder
 	public ModelBuilder() throws NotFoundException, CannotCompileException 
 	{
 		super( ClassPool.getDefault() );
+		
+		logger.debug( "Creating a new ModelBuilder" );
 	}
 
 	public ClassBuilder named( String name ) throws NotFoundException, CannotCompileException
 	{
+		logger.debug( "Setting model reference name to {}", name );
+		
 		this.name = name;
 		return this;
 	}
@@ -24,8 +28,11 @@ public class ModelBuilder extends ClassBuilder
 	@Override
 	public Class<?> apply() throws CannotCompileException, NotFoundException 
 	{
+		logger.debug( "Building model {}", name );
+		
 		Class<?> c = super.apply();
 		
+		logger.debug( "Registering model {}", name );
 		Nimble.registerModel( name, c );
 		
 		return c;

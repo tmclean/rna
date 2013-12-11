@@ -27,6 +27,8 @@ public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationB
 	{
 		super( methodBuilder.getPool() );
 		
+		logger.debug( "Creating new MethodParamAnnotationBuilder to annotate parmeter {} with annotation {}", paramName, annotationClass.getName() );
+		
 		this.methodBuilder = methodBuilder;
 		this.cClass = methodBuilder.getCTClass();
 		this.constPool = cClass.getClassFile().getConstPool();
@@ -38,6 +40,9 @@ public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationB
 	
 	public MethodParamAnnotationBuilder withStringsParam( String name, String ... values )
 	{
+		if( logger.isDebugEnabled() )
+			logger.debug( "Setting annotation parameter {} with values {}", name, new Object[]{values} );
+		
 		ArrayMemberValue arrayVal = new ArrayMemberValue( constPool );
 		
 		MemberValue[] vals = new MemberValue[values == null ? 0 : values.length];
@@ -47,6 +52,8 @@ public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationB
 		
 		arrayVal.setValue( vals );
 
+		logger.debug( "Adding annotation parameters" );
+		
 		annotation.addMemberValue( "value", arrayVal );
 		
 		return this;
@@ -54,6 +61,8 @@ public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationB
 	
 	public MethodParamAnnotationBuilder withStringParam( String name, String value )
 	{
+		logger.debug( "Adding annotation parameter {} with value {}", name, value );
+		
 		annotation.addMemberValue( name, new StringMemberValue( value, constPool ) );
 		
 		return this;
@@ -62,30 +71,45 @@ public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationB
 	@Override
 	public MethodBuilder apply() throws CannotCompileException, NotFoundException
 	{
+		logger.debug( "Applying method parameter annotation" );
 		String visibility = ParameterAnnotationsAttribute.visibleTag;
 		
 		if( this.method.getMethodInfo().getAttribute( visibility ) == null )
+		{
+			logger.debug( "Method annotation info has not been initialized, initializing" );
+			
 			this.method.getMethodInfo().addAttribute( new ParameterAnnotationsAttribute( constPool, visibility ) );
+		}
+		
+		logger.debug( "Getting ordinal for parameter {}", paramName );
 		
 		int paramIdx = methodBuilder.getParamOrdinal( paramName );
 		
+		logger.debug( "Parameter {} has ordinal {}", paramName, paramIdx );
+		
 	     AttributeInfo paramAtrributeInfo = this.method.getMethodInfo().getAttribute( visibility );
+	     
+	     logger.debug( "Getting method parameter annotation array" );
 	     
 	     ParameterAnnotationsAttribute parameterAtrribute = ((ParameterAnnotationsAttribute) paramAtrributeInfo);
 	     Annotation[][] paramArrays = parameterAtrribute.getAnnotations();
 	     
 	     if( paramArrays.length == 0 )
 	     {
+	    	 logger.debug( "Method parameter annotation array has not been initalized, initializing array to fit this parameter" );
+	    	 
 	    	 paramArrays = new Annotation[paramIdx+1][];
 	     }
 	     else if( paramArrays.length <= paramIdx )
 	     {
+	    	 logger.debug( "Method parameter annotation array exists, expanding for new parameter" );
+	    	 
 	    	 Annotation[][] newParamArrays = new Annotation[paramArrays.length+1][];
 	    	 
+	    	 logger.debug( "Copying existing parameter annotation arrays into expanded array" );
+	    	  
 	    	 for( int i=0; i<paramArrays.length; i++ )
-	    	 {
 	    		 newParamArrays[i] = paramArrays[i];
-	    	 }
 	    	 
 	    	 paramArrays = newParamArrays;
 	     }
@@ -95,20 +119,27 @@ public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationB
 			     
 		if( addAnno == null )
 		{
+			logger.debug( "Annotation array for this parameter has not been initialized, initializing for single annotation" );
+			
 			addAnno = new Annotation[1];
 			newAnno = new Annotation[1];
 		}
 		else if( addAnno.length == 0 )
 		{
+			logger.debug( "Annotation array for this parameter has been initialized, but is empty. Initializing for single annotation" );
 			newAnno = new Annotation[1];
 		}
 		else 
 		{
+			logger.debug( "Annotation array for this parameter has been initialized an other annotations exist. Expanding." );
 			newAnno = Arrays.copyOf( addAnno, addAnno.length+1 );
 		}
 			     
 		newAnno[newAnno.length-1] = annotation;
 		paramArrays[paramIdx] = newAnno;
+		
+		logger.debug( "Assigning new annotation array to method parameter" );
+		
 		parameterAtrribute.setAnnotations( paramArrays );
 		
 		return this.methodBuilder;
