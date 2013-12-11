@@ -1,4 +1,4 @@
-package net.tmclean.nimble.test;
+package net.tmclean.nimble.example;
 
 import java.util.ArrayList;
 import java.util.List;

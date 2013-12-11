@@ -1,4 +1,4 @@
-package net.tmclean.nimble.test;
+package net.tmclean.nimble.example;
 
 import org.apache.log4j.PropertyConfigurator;
 
