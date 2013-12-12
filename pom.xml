@@ -14,6 +14,24 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<cxf.version>2.7.6</cxf.version>
 	</properties>
+	
+	<distributionManagement>
+	<!-- 
+		<site>
+			<id>s3-sites</id>
+			<url>s3://tmclean-net-maven-builds/site</url>
+		</site>
+		<repository>
+			<id>s3-releases</id>
+			<url>s3://tmclean-net-maven-builds/releases</url>
+		</repository>
+	-->
+		<snapshotRepository>
+			<id>s3-snapshots</id>
+			<url>s3://tmclean-net-maven-builds/snapshots</url>
+		</snapshotRepository>
+		
+	</distributionManagement>
 
 	<build>
 		<plugins>
@@ -27,6 +45,13 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.kuali.maven.wagons</groupId>
+				<artifactId>maven-s3-wagon</artifactId>
+				<version>1.2.1</version>
+			</extension>
+		</extensions>
 	</build>
 
 	<dependencies>
