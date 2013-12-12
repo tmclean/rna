@@ -16,7 +16,6 @@
 	</properties>
 	
 	<distributionManagement>
-	<!-- 
 		<site>
 			<id>s3-sites</id>
 			<url>s3://tmclean-net-maven-builds/site</url>
@@ -25,12 +24,10 @@
 			<id>s3-releases</id>
 			<url>s3://tmclean-net-maven-builds/releases</url>
 		</repository>
-	-->
 		<snapshotRepository>
 			<id>s3-snapshots</id>
 			<url>s3://tmclean-net-maven-builds/snapshots</url>
 		</snapshotRepository>
-		
 	</distributionManagement>
 
 	<build>
