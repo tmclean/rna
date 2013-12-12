@@ -18,7 +18,7 @@
 	<distributionManagement>
 		<site>
 			<id>s3-sites</id>
-			<url>s3://tmclean-net-maven-builds/site</url>
+			<url>s3://tmclean-net-maven-site/</url>
 		</site>
 		<repository>
 			<id>s3-releases</id>
