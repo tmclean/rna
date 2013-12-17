@@ -3,7 +3,7 @@ package net.tmclean.rna.jaxrs;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.NotFoundException;
-import net.tmclean.rna.Nimble;
+import net.tmclean.rna.RNA;
 import net.tmclean.rna.core.ClassBuilder;
 
 public class ModelBuilder extends ClassBuilder 
@@ -33,7 +33,7 @@ public class ModelBuilder extends ClassBuilder
 		Class<?> c = super.apply();
 		
 		logger.debug( "Registering model {}", name );
-		Nimble.registerModel( name, c );
+		RNA.registerModel( name, c );
 		
 		return c;
 	}

@@ -14,9 +14,9 @@ import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.NotFoundException;
 
-public final class Nimble 
+public final class RNA 
 {
-	private static final Logger logger = LoggerFactory.getLogger( Nimble.class );
+	private static final Logger logger = LoggerFactory.getLogger( RNA.class );
 	
 	private static final Map<String, Class<?>> modelRegistry = new HashMap<String, Class<?>>( 0 );
 	private static final Map<Class<?>, String> revModelRegistry = new HashMap<Class<?>, String>( 0 );

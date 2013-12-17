@@ -14,7 +14,7 @@ import javax.ws.rs.QueryParam;
 
 import javassist.CannotCompileException;
 import javassist.NotFoundException;
-import net.tmclean.rna.Nimble;
+import net.tmclean.rna.RNA;
 import net.tmclean.rna.core.MethodBuilder;
 
 public abstract class RESTMethodBuilder extends MethodBuilder
@@ -56,7 +56,7 @@ public abstract class RESTMethodBuilder extends MethodBuilder
 		if( logger.isDebugEnabled() )
 			logger.debug( "Setting method to produce model {} consume media types {}", modelName, new Object[]{ types } );
 		
-		returns( Nimble.getModel( modelName ) );
+		returns( RNA.getModel( modelName ) );
 		
 		this.produces = types;
 		

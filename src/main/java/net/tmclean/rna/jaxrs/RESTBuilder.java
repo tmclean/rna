@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.NotFoundException;
-import net.tmclean.rna.Nimble;
+import net.tmclean.rna.RNA;
 import net.tmclean.rna.core.ClassAnnotationBuilder;
 import net.tmclean.rna.core.ClassBuilder;
 
@@ -52,7 +52,7 @@ public class RESTBuilder extends ClassBuilder
 	{
 		Class<?> clazz = super.apply();
 		
-		Nimble.registerResource( resourceName, clazz );
+		RNA.registerResource( resourceName, clazz );
 		
 		return clazz;
 	}
