@@ -1,4 +1,4 @@
-package net.tmclean.nimble.jaxrs;
+package net.tmclean.rna.jaxrs;
 
 import javax.ws.rs.GET;
 

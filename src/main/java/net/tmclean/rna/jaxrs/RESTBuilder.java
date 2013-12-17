@@ -1,13 +1,13 @@
-package net.tmclean.nimble.jaxrs;
+package net.tmclean.rna.jaxrs;
 
 import javax.ws.rs.Path;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.NotFoundException;
-import net.tmclean.nimble.Nimble;
-import net.tmclean.nimble.core.ClassAnnotationBuilder;
-import net.tmclean.nimble.core.ClassBuilder;
+import net.tmclean.rna.Nimble;
+import net.tmclean.rna.core.ClassAnnotationBuilder;
+import net.tmclean.rna.core.ClassBuilder;
 
 public class RESTBuilder extends ClassBuilder
 {

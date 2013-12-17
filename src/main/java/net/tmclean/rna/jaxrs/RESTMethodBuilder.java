@@ -1,4 +1,4 @@
-package net.tmclean.nimble.jaxrs;
+package net.tmclean.rna.jaxrs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +14,8 @@ import javax.ws.rs.QueryParam;
 
 import javassist.CannotCompileException;
 import javassist.NotFoundException;
-import net.tmclean.nimble.Nimble;
-import net.tmclean.nimble.core.MethodBuilder;
+import net.tmclean.rna.Nimble;
+import net.tmclean.rna.core.MethodBuilder;
 
 public abstract class RESTMethodBuilder extends MethodBuilder
 {

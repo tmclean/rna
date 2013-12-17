@@ -1,4 +1,4 @@
-package net.tmclean.nimble.core;
+package net.tmclean.rna.core;
 
 import java.lang.reflect.Modifier;
 

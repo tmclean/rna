@@ -1,4 +1,4 @@
-package net.tmclean.nimble;
+package net.tmclean.rna;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.tmclean.nimble.jaxrs.ModelBuilder;
-import net.tmclean.nimble.jaxrs.RESTBuilder;
+import net.tmclean.rna.jaxrs.ModelBuilder;
+import net.tmclean.rna.jaxrs.RESTBuilder;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.NotFoundException;

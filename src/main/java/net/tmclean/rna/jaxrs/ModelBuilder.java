@@ -1,10 +1,10 @@
-package net.tmclean.nimble.jaxrs;
+package net.tmclean.rna.jaxrs;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.NotFoundException;
-import net.tmclean.nimble.Nimble;
-import net.tmclean.nimble.core.ClassBuilder;
+import net.tmclean.rna.Nimble;
+import net.tmclean.rna.core.ClassBuilder;
 
 public class ModelBuilder extends ClassBuilder 
 {
