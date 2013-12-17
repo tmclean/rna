@@ -24,7 +24,7 @@ public abstract class RESTMethodBuilder extends MethodBuilder
 	private String[] consumes = null;
 	private String[] produces = null;
 
-	private List<String> params = new ArrayList<>();
+	private List<String> params = new ArrayList<String>();
 	
 	private Map<String, Class<?>> paramTypes = new HashMap<String, Class<?>>();
 	
@@ -96,7 +96,17 @@ public abstract class RESTMethodBuilder extends MethodBuilder
 	@Override
 	public RESTMethodBuilder returns(Class<?> returnType) throws NotFoundException 
 	{
-		return (RESTMethodBuilder)super.returns(returnType);
+		super.returns(returnType);
+		
+		return this;
+	}
+	
+	@Override
+	public RESTMethodBuilder withSource( String src ) 
+	{
+		super.withSource( src );
+		
+		return this;
 	}
 	
 	@Override
