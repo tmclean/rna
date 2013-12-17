@@ -94,24 +94,15 @@ public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationB
 	     ParameterAnnotationsAttribute parameterAtrribute = ((ParameterAnnotationsAttribute) paramAtrributeInfo);
 	     Annotation[][] paramArrays = parameterAtrribute.getAnnotations();
 	     
-	     if( paramArrays.length == 0 )
+	     if( paramArrays == null || paramArrays.length == 0 )
 	     {
 	    	 logger.debug( "Method parameter annotation array has not been initalized, initializing array to fit this parameter" );
 	    	 
-	    	 paramArrays = new Annotation[paramIdx+1][];
-	     }
-	     else if( paramArrays.length <= paramIdx )
-	     {
-	    	 logger.debug( "Method parameter annotation array exists, expanding for new parameter" );
+	    	 paramArrays = new Annotation[methodBuilder.getNumParams()][];
 	    	 
-	    	 Annotation[][] newParamArrays = new Annotation[paramArrays.length+1][];
-	    	 
-	    	 logger.debug( "Copying existing parameter annotation arrays into expanded array" );
-	    	  
 	    	 for( int i=0; i<paramArrays.length; i++ )
-	    		 newParamArrays[i] = paramArrays[i];
-	    	 
-	    	 paramArrays = newParamArrays;
+	    		 paramArrays[i] = new Annotation[]{};
+	    		 
 	     }
 
 		Annotation[] addAnno = paramArrays[paramIdx];
