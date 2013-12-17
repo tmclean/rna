@@ -41,12 +41,16 @@ public abstract class RESTMethodBuilder extends MethodBuilder
 		this.path = path;
 	}
 	
-	public RESTMethodBuilder consumes( String ... types )
+	public RESTMethodBuilder consumes( String modelName, String ... types )
 	{
 		if( logger.isDebugEnabled() )
 			logger.debug( "Setting method to consume media types {}", new Object[]{ types } );
 		
 		this.consumes = types;
+		
+		Class<?> paramModel = RNA.getModel( modelName );
+		paramTypes.put( modelName, paramModel );
+		params.add( modelName );
 		
 		return this;
 	}
@@ -94,7 +98,7 @@ public abstract class RESTMethodBuilder extends MethodBuilder
 	}
 	
 	@Override
-	public RESTMethodBuilder returns(Class<?> returnType) throws NotFoundException 
+	public RESTMethodBuilder returns( Class<?> returnType ) throws NotFoundException 
 	{
 		super.returns(returnType);
 		
@@ -125,8 +129,8 @@ public abstract class RESTMethodBuilder extends MethodBuilder
 		for( String paramName : params )
 		{
 			Class<?> paramType = paramTypes.get( paramName );
-			logger.debug( "Adding parameter {} with type {}", paramName, paramType.getName() );
-			this.takes( paramName, paramType );
+			
+			super.takes( paramName, paramType );
 		}
 		
 		this.build();
@@ -148,7 +152,7 @@ public abstract class RESTMethodBuilder extends MethodBuilder
 		if( consumes != null && consumes.length > 0 )
 		{
 			logger.debug( "Setting consumes annotation" );
-			this.annotatedBy( Consumes.class ).withStringsParam( "value", produces ).apply();
+			this.annotatedBy( Consumes.class ).withStringsParam( "value", consumes ).apply();
 		}
 		
 		logger.debug( "Setting parameter annotations" );
