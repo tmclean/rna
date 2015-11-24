@@ -13,8 +13,8 @@ public abstract class Builder<T,V>
 {
 	protected Logger logger = null;
 	
-	private ClassPool pool = null;
-	private int modifier = 0;
+	private ClassPool pool     = null;
+	private int       modifier = 0;
 	
 	public Builder( ClassPool pool )
 	{

@@ -7,12 +7,11 @@ import javassist.NotFoundException;
 
 public class FieldBuilder extends Builder<FieldBuilder, ClassBuilder>
 {
-	private String  name     = null;
-	private CtClass type     = null;
-	private String  valueSrc = null;
-	
+	private String       name         = null;
+	private CtClass      type         = null;
+	private String       valueSrc     = null;
 	private ClassBuilder classBuilder = null;
-	private CtClass cClass = null;
+	private CtClass      cClass       = null;
 	
 	public FieldBuilder( ClassBuilder classBuilder )
 	{

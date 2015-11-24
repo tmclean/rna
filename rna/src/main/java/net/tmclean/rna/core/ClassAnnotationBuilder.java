@@ -13,9 +13,9 @@ import javassist.bytecode.annotation.StringMemberValue;
 public class ClassAnnotationBuilder extends Builder<ClassAnnotationBuilder, ClassBuilder>
 {
 	private ClassBuilder classBuilder = null;
-	private CtClass cClass = null;
-	private ConstPool constPool = null;
-	private Annotation annotation = null;
+	private CtClass      cClass       = null;
+	private ConstPool    constPool    = null;
+	private Annotation   annotation   = null;
 	
 	public ClassAnnotationBuilder( ClassBuilder classBuilder, Class<?> annotationClass ) 
 	{

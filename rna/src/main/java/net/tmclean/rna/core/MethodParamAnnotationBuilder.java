@@ -17,11 +17,11 @@ import javassist.bytecode.annotation.StringMemberValue;
 public class MethodParamAnnotationBuilder extends Builder<MethodParamAnnotationBuilder, MethodBuilder>
 {
 	private MethodBuilder methodBuilder = null;
-	private CtClass cClass = null;
-	private ConstPool constPool = null;
-	private Annotation annotation = null;
-	private CtMethod method = null;
-	private String paramName = null;
+	private CtClass       cClass        = null;
+	private ConstPool     constPool     = null;
+	private Annotation    annotation    = null;
+	private CtMethod      method        = null;
+	private String        paramName     = null;
 	
 	public MethodParamAnnotationBuilder( MethodBuilder methodBuilder, String paramName, Class<?> annotationClass ) 
 	{

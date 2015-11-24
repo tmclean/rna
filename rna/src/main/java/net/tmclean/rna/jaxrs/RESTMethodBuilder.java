@@ -20,16 +20,16 @@ import net.tmclean.rna.core.MethodBuilder;
 public abstract class RESTMethodBuilder extends MethodBuilder
 {
 	private Class<?> annotation = null;
-	private String path = null;
-	private String[] consumes = null;
-	private String[] produces = null;
+	private String   path       = null;
+	private String[] consumes   = null;
+	private String[] produces   = null;
 
-	private List<String> params = new ArrayList<String>();
+	private List<String> params = new ArrayList<>();
 	
-	private Map<String, Class<?>> paramTypes = new HashMap<String, Class<?>>();
+	private Map<String, Class<?>> paramTypes = new HashMap<>();
 	
-	private Map<String, String> queryParams = new HashMap<String, String>();
-	private Map<String, String> pathParams = new HashMap<String, String>();
+	private Map<String, String> queryParams = new HashMap<>();
+	private Map<String, String> pathParams = new HashMap<>();
 	
 	public RESTMethodBuilder( RESTBuilder builder, Class<?> annotation, String path )
 	{

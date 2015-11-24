@@ -15,10 +15,11 @@ public class MethodBuilder extends Builder<MethodBuilder, ClassBuilder>
 	private CtClass cClass           = null;
 	private String  name             = null;
 	private CtClass returnType       = CtClass.voidType;
-	private List<CtClass> parameters = new ArrayList<CtClass>( 0 );
+	private List<CtClass> parameters = new ArrayList<>( 0 );
 	private String src               = null;
-	private Map<String, Integer> paramOrderMap = new HashMap<String, Integer>();
-	private Map<Integer, String> paramInvOrderMap = new HashMap<Integer, String>();
+	
+	private Map<String, Integer> paramOrderMap = new HashMap<>();
+	private Map<Integer, String> paramInvOrderMap = new HashMap<>();
 	
 	private ClassBuilder classBuilder = null;
 	private CtMethod method = null;
